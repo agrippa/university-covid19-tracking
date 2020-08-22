@@ -39,13 +39,13 @@
                 var positive_data = google.visualization.arrayToDataTable(raw_positive_data);
 
                 testing_chart.draw(testing_data, {
-                    'title': '# of Tests Per Day',
+                    'title': 'Cumulative Tests Over Time',
                     'fontSize': '15',
                     'vAxis': {'title': '# of Tests'},
                     'hAxis': {'title': 'Date'}});
 
                 positive_chart.draw(positive_data, {
-                    'title': '# of Positives Per Day',
+                    'title': 'Cumulative Positive Tests Over Time',
                     'fontSize': '15',
                     'vAxis': {'title': '# of Positives'},
                     'hAxis': {'title': 'Date'}});

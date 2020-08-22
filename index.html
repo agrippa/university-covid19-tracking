@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117078107-2"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-117078107-2');
+        </script>
+
         <script type="text/javascript" src="testing.js"></script>
         <script type="text/javascript" src="positive.js"></script>
 
@@ -45,6 +55,8 @@
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawCharts);
         </script>
+        <title>University COVID-19 Surveillance Tracker</title>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon_covid.ico"/>
     </head>
     <body style="overflow: visible">
         <div class='container' style="background-color: lightgray; margin-bottom: 10px;">

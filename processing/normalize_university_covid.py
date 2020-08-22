@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 
-if len(sys.argv) != 2:
-    sys.stderr.write('usage: python normalize_university_data.py <CSV>\n')
+if len(sys.argv) != 4:
+    sys.stderr.write('usage: python normalize_university_data.py <CSV> <path/to/data> <path/to/web/>\n')
     sys.exit(1)
 
 fp = open(sys.argv[1], 'r')
@@ -74,5 +74,22 @@ for u in university_names:
     testing_df.loc[daily_tests.index, u] = daily_tests.values
     positive_df.loc[daily_positives.index, u] = daily_positives.values
 
-testing_df.to_csv('testing.csv')
-positive_df.to_csv('positives.csv')
+testing_df.to_csv(os.path.join(sys.argv[2], 'testing.csv'))
+positive_df.to_csv(os.path.join(sys.argv[2], 'positives.csv'))
+
+testing_fp = open(os.path.join(sys.argv[3], 'testing.js'), 'w')
+column_names = ', '.join(["'" + c + "'" for c in testing_df.columns.values])
+testing_fp.write("var raw_testing_data = [['Date', " + column_names + "],\n")
+for date, vals in testing_df.iterrows():
+    testing_fp.write("    ['" + date.strftime('%Y-%m-%d') + "'," + ",".join(['null' if str(v) == 'nan' else str(v) for v in vals.values]) + '],\n')
+testing_fp.write("    ];\n")
+testing_fp.close()
+
+positive_fp = open(os.path.join(sys.argv[3], 'positive.js'), 'w')
+column_names = ', '.join(["'" + c + "'" for c in positive_df.columns.values])
+positive_fp.write("var raw_positive_data = [['Date', " + column_names + "],\n")
+for date, vals in positive_df.iterrows():
+    positive_fp.write("    ['" + date.strftime('%Y-%m-%d') + "'," + ",".join(['null' if str(v) == 'nan' else str(v) for v in vals.values]) + '],\n')
+positive_fp.write("    ];\n")
+positive_fp.close()
+

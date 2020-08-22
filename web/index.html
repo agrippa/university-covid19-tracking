@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="testing.js"></script>
+        <script type="text/javascript" src="positive.js"></script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+            var testing_chart = null;
+            var positive_chart = null;
+
+            function drawCharts() {
+                testing_chart = new google.visualization.LineChart(document.getElementById('testing'));
+                positive_chart = new google.visualization.LineChart(document.getElementById('positive'));
+
+                testing_chart.clearChart();
+                positive_chart.clearChart();
+
+                var testing_data = google.visualization.arrayToDataTable(raw_testing_data);
+                var positive_data = google.visualization.arrayToDataTable(raw_positive_data);
+
+                testing_chart.draw(testing_data, {
+                    'title': '# of Tests Per Day',
+                    'fontSize': '15',
+                    'vAxis': {'title': '# of Tests'},
+                    'hAxis': {'title': 'Date'}});
+
+                positive_chart.draw(positive_data, {
+                    'title': '# of Positives Per Day',
+                    'fontSize': '15',
+                    'vAxis': {'title': '# of Positives'},
+                    'hAxis': {'title': 'Date'}});
+
+            }
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawCharts);
+        </script>
+    </head>
+    <body style="overflow: visible">
+        <div class='col-md-12'>
+            <div id="testing" style="width: 100%; min-height: 500px">
+            </div>
+            <div id="positive" style="width: 100%; min-height: 500px">
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,5 +1,7 @@
 # university-covid19-tracking
 
+Authors: Max Grossman & Sinath Neang
+
 This repo aims to aggregate, normalize, and visualize surveillance and
 symptomatic testing data from a variety of USA universities that have continued
 with in-person instruction for the Fall 2020 semester. These universities have

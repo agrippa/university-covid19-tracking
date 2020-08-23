@@ -1,4 +1,4 @@
-# university-covid19-tracking
+# University COVID-19 Surveillance Tracker
 
 Authors: Max Grossman & Sinath Neang
 
@@ -24,6 +24,13 @@ how testing ramps up through the fall semester.
   partial closes, send students home, etc).
 - Include metadata on enrollments of universities, to support plots normalized
   by student body size.
+
+### Deploying
+
+After updates to the code or data, deploying a new version of the site is done
+by running:
+
+    git subtree push --prefix web origin gh-pages
 
 ### License
 

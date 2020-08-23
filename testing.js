@@ -26,4 +26,5 @@ var raw_testing_data = [['Date', 'North Carolina State University', 'UNC Chapel 
     ['2020-08-19',1705,null,1777,307.1428571428571,1695,null,2537],
     ['2020-08-20',2211,null,2033,319.0,null,null,3368],
     ['2020-08-21',2510,null,2235,null,null,null,4384],
+    ['2020-08-22',null,null,null,null,null,null,5386],
     ];

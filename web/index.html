@@ -36,6 +36,7 @@
             var positive_chart = null;
             var testing_per_day_chart = null;
             var positive_per_day_chart = null;
+            var percent_positive_per_day_chart = null;
 
             function computeDeltaDataset(cumulative_data) {
                 var delta = [cumulative_data[0]];
@@ -73,20 +74,36 @@
                 var raw_delta_positives = computeDeltaDataset(raw_positive_data);
                 var raw_delta_testing = computeDeltaDataset(raw_testing_data);
 
+                var percent_positive = [raw_delta_positives[0]];
+                for (var row = 1; row < raw_delta_positives.length; row++) {
+                    var record = [raw_delta_positives[row][0]];
+                    for (var col =  1; col < raw_delta_positives[row].length; col++) {
+                        if (raw_delta_positives[row][col] !== null && raw_delta_testing[row][col] !== null) {
+                            record.push(raw_delta_positives[row][col] / raw_delta_testing[row][col])
+                        } else {
+                            record.push(null);
+                        }
+                    }
+                    percent_positive.push(record)
+                }
+
                 testing_chart = new google.visualization.LineChart(document.getElementById('testing'));
                 positive_chart = new google.visualization.LineChart(document.getElementById('positive'));
                 testing_per_day_chart = new google.visualization.LineChart(document.getElementById('testing_per_day'));
                 positive_per_day_chart = new google.visualization.LineChart(document.getElementById('positive_per_day'));
+                percent_positive_per_day_chart = new google.visualization.LineChart(document.getElementById('percent_positive_per_day'));
 
                 testing_chart.clearChart();
                 positive_chart.clearChart();
                 testing_per_day_chart.clearChart();
                 positive_per_day_chart.clearChart();
+                percent_positive_per_day_chart.clearChart();
 
                 var testing_data = google.visualization.arrayToDataTable(addTypeInformation(raw_testing_data));
                 var positive_data = google.visualization.arrayToDataTable(addTypeInformation(raw_positive_data));
                 var delta_positives = google.visualization.arrayToDataTable(addTypeInformation(raw_delta_positives));
                 var delta_testing = google.visualization.arrayToDataTable(addTypeInformation(raw_delta_testing));
+                var percent_positive_data = google.visualization.arrayToDataTable(addTypeInformation(percent_positive));
 
                 testing_chart.draw(testing_data, {
                     'title': 'Cumulative Tests Over Time',
@@ -110,6 +127,12 @@
                     'title': 'Positive Tests Per Day',
                     'fontSize': '15',
                     'vAxis': {'title': '# of Positives'},
+                    'hAxis': {'title': 'Date'}});
+
+                percent_positive_per_day_chart.draw(percent_positive_data, {
+                    'title': '% Positive Tests Per Day',
+                    'fontSize': '15',
+                    'vAxis': {'title': '%', 'format': 'percent'},
                     'hAxis': {'title': 'Date'}});
             }
 
@@ -157,6 +180,8 @@
             <div id="testing_per_day" style="width: 100%; min-height: 500px">
             </div>
             <div id="positive_per_day" style="width: 100%; min-height: 500px">
+            </div>
+            <div id="percent_positive_per_day" style="width: 100%; min-height: 500px">
             </div>
         </div>
         <div class='col-md-12' style="padding-left: 10%; padding-right: 10%; padding-top: 10%; padding-bottom: 20px;">

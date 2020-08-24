@@ -18,12 +18,11 @@ how testing ramps up through the fall semester.
 
 ### TODOs
 
-- Use Google Charts and Github hosting to host various visualizations of
-  testing.csv and positive.csv.
 - Include metadata on actions taken at universities at different dates (e.g.
   partial closes, send students home, etc).
 - Include metadata on enrollments of universities, to support plots normalized
   by student body size.
+- Add 7-day rolling averages for plots, more useful than cumulative over all time.
 
 ### Deploying
 

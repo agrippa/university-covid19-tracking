@@ -34,16 +34,59 @@
         <script type="text/javascript">
             var testing_chart = null;
             var positive_chart = null;
+            var testing_per_day_chart = null;
+            var positive_per_day_chart = null;
+
+            function computeDeltaDataset(cumulative_data) {
+                var delta = [cumulative_data[0]];
+                for (var i = 2; i < cumulative_data.length; i++) {
+                    var record = [];
+                    record.push(cumulative_data[i][0]);
+                    for (var j = 1; j < cumulative_data[i].length; j++) {
+                        if (cumulative_data[i][j] === null || cumulative_data[i-1][j] === null) {
+                            record.push(null);
+                        } else {
+                            record.push(cumulative_data[i][j] - cumulative_data[i-1][j]);
+                        }
+                    }
+                    delta.push(record);
+                }
+                return delta;
+            }
+
+            function addTypeInformation(table) {
+                var new_table = [];
+                var header = table[0];
+                var new_header = [];
+                new_header.push(header[0]);
+                for (var i = 1; i < header.length; i++) {
+                    new_header.push({'label': header[i], 'type': 'number'});
+                }
+                new_table.push(new_header);
+                for (var i = 1; i < table.length; i++) {
+                    new_table.push(table[i]);
+                }
+                return new_table;
+            }
 
             function drawCharts() {
+                var raw_delta_positives = computeDeltaDataset(raw_positive_data);
+                var raw_delta_testing = computeDeltaDataset(raw_testing_data);
+
                 testing_chart = new google.visualization.LineChart(document.getElementById('testing'));
                 positive_chart = new google.visualization.LineChart(document.getElementById('positive'));
+                testing_per_day_chart = new google.visualization.LineChart(document.getElementById('testing_per_day'));
+                positive_per_day_chart = new google.visualization.LineChart(document.getElementById('positive_per_day'));
 
                 testing_chart.clearChart();
                 positive_chart.clearChart();
+                testing_per_day_chart.clearChart();
+                positive_per_day_chart.clearChart();
 
-                var testing_data = google.visualization.arrayToDataTable(raw_testing_data);
-                var positive_data = google.visualization.arrayToDataTable(raw_positive_data);
+                var testing_data = google.visualization.arrayToDataTable(addTypeInformation(raw_testing_data));
+                var positive_data = google.visualization.arrayToDataTable(addTypeInformation(raw_positive_data));
+                var delta_positives = google.visualization.arrayToDataTable(addTypeInformation(raw_delta_positives));
+                var delta_testing = google.visualization.arrayToDataTable(addTypeInformation(raw_delta_testing));
 
                 testing_chart.draw(testing_data, {
                     'title': 'Cumulative Tests Over Time',
@@ -57,6 +100,17 @@
                     'vAxis': {'title': '# of Positives'},
                     'hAxis': {'title': 'Date'}});
 
+                testing_per_day_chart.draw(delta_testing, {
+                    'title': 'Tests Per Day',
+                    'fontSize': '15',
+                    'vAxis': {'title': '# of Tests'},
+                    'hAxis': {'title': 'Date'}});
+
+                positive_per_day_chart.draw(delta_positives, {
+                    'title': 'Positive Tests Per Day',
+                    'fontSize': '15',
+                    'vAxis': {'title': '# of Positives'},
+                    'hAxis': {'title': 'Date'}});
             }
 
             google.charts.load('current', {'packages':['corechart']});
@@ -99,6 +153,10 @@
             <div id="testing" style="width: 100%; min-height: 500px">
             </div>
             <div id="positive" style="width: 100%; min-height: 500px">
+            </div>
+            <div id="testing_per_day" style="width: 100%; min-height: 500px">
+            </div>
+            <div id="positive_per_day" style="width: 100%; min-height: 500px">
             </div>
         </div>
         <div class='col-md-12' style="padding-left: 10%; padding-right: 10%; padding-top: 10%; padding-bottom: 20px;">

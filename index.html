@@ -114,7 +114,7 @@
                 positive_chart.draw(positive_data, {
                     'title': 'Cumulative Positive Tests Over Time',
                     'fontSize': '15',
-                    'vAxis': {'title': '# of Positives'},
+                    'vAxis': {'title': '# of Positives (log scale)', 'scaleType': 'log'},
                     'hAxis': {'title': 'Date'}});
 
                 testing_per_day_chart.draw(delta_testing, {
@@ -126,7 +126,7 @@
                 positive_per_day_chart.draw(delta_positives, {
                     'title': 'Positive Tests Per Day',
                     'fontSize': '15',
-                    'vAxis': {'title': '# of Positives'},
+                    'vAxis': {'title': '# of Positives (log scale)', 'scaleType': 'log'},
                     'hAxis': {'title': 'Date'}});
 
                 percent_positive_per_day_chart.draw(percent_positive_data, {

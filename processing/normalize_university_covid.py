@@ -112,7 +112,7 @@ first = True
 for university in university_to_population_size:
     if not first:
         population_fp.write(',\n    ')
-    population_fp.write(university + ': ' + str(university_to_population_size[university]))
+    population_fp.write("'" + university + '\': ' + str(university_to_population_size[university]))
     first = False
 population_fp.write('};')
 population_fp.close()

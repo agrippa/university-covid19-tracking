@@ -10,11 +10,19 @@ if len(sys.argv) != 4:
 fp = open(sys.argv[1], 'r')
 
 # Skip past header containing data sources
-line = fp.readline()
+university_to_population_size = {}
+line = fp.readline() # header line
+line = fp.readline() # first university
 while len(line) > 0:
     record = line.strip().split(',')
     if record[0] == '':
         break
+
+    university_name = record[0]
+    population_size = int(record[5])
+    assert university_name not in university_to_population_size, university_name
+    university_to_population_size[university_name] = population_size
+    
     line = fp.readline()
 
 min_date = None
@@ -98,3 +106,13 @@ for date, vals in plot_positive_df.iterrows():
 positive_fp.write("    ];\n")
 positive_fp.close()
 
+population_fp = open(os.path.join(sys.argv[3], 'population.js'), 'w')
+population_fp.write('var population_sizes = {')
+first = True
+for university in university_to_population_size:
+    if not first:
+        population_fp.write(',\n    ')
+    population_fp.write(university + ': ' + str(university_to_population_size[university]))
+    first = False
+population_fp.write('};')
+population_fp.close()

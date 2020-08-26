@@ -27,7 +27,7 @@ var raw_positive_data = [['Date', 'North Carolina State University', 'UNC Chapel
     ['2020-08-20',25,447.14285714285717,348,2.0,35,33.33333333333333,3,8.333333333333334,5,1.2409999999999999,null,58.0,null,7,null,12,null],
     ['2020-08-21',78,517.4285714285714,372,null,49,37.0,5,10.0,5,1.2409999999999999,null,88.0,null,7,null,14,null],
     ['2020-08-22',78,587.7142857142858,391,null,52,null,5,10.666666666666666,6,1.2409999999999999,null,127.0,null,7,null,14,null],
-    ['2020-08-23',240,658.0,421,null,null,null,6,11.333333333333334,7,1.2409999999999999,null,135.0,null,null,null,14,68],
-    ['2020-08-24',null,null,null,null,null,null,null,12.0,7,null,null,null,3,null,null,null,null],
+    ['2020-08-23',240,658.0,421,null,58,null,6,11.333333333333334,7,1.2409999999999999,null,135.0,null,null,null,14,68],
+    ['2020-08-24',243,null,451,null,null,null,8,12.0,7,null,null,null,3,null,null,null,null],
     ['2020-08-25',null,null,null,null,null,null,null,null,null,null,null,null,null,null,242,null,null],
     ];

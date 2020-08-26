@@ -37,6 +37,8 @@
             var testing_per_day_chart = null;
             var positive_per_day_chart = null;
             var percent_positive_per_day_chart = null;
+            var percent_testing_per_day_chart = null;
+            var percent_testing_total_chart = null;
 
             function computeDeltaDataset(cumulative_data) {
                 var delta = [cumulative_data[0]];
@@ -86,7 +88,7 @@
                     }
                     percent_positive.push(record)
                 }
-
+                
                 testing_chart = new google.visualization.LineChart(document.getElementById('testing'));
                 positive_chart = new google.visualization.LineChart(document.getElementById('positive'));
                 testing_per_day_chart = new google.visualization.LineChart(document.getElementById('testing_per_day'));

@@ -86,9 +86,11 @@ for u in university_names:
 testing_df.to_csv(os.path.join(sys.argv[2], 'testing.csv'))
 positive_df.to_csv(os.path.join(sys.argv[2], 'positives.csv'))
 
+# end_date = datetime.date.today()
+end_date = testing_df.index.max()
 days_to_display = 30
-plot_testing_df = testing_df.loc[datetime.date.today() - datetime.timedelta(days=days_to_display):, :]
-plot_positive_df = positive_df.loc[datetime.date.today() - datetime.timedelta(days=days_to_display):, :]
+plot_testing_df = testing_df.loc[end_date - datetime.timedelta(days=days_to_display):, :]
+plot_positive_df = positive_df.loc[end_date - datetime.timedelta(days=days_to_display):, :]
 
 testing_fp = open(os.path.join(sys.argv[3], 'testing.js'), 'w')
 column_names = ', '.join(["'" + c + "'" for c in plot_testing_df.columns.values])
